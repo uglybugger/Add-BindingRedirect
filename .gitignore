@@ -2,5 +2,5 @@
 *.suo
 **/bin/*
 **/obj/*
-packages/*
+**/packages/*
 .vs/*
