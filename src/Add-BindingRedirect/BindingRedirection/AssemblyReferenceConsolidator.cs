@@ -27,13 +27,7 @@ namespace Add_BindingRedirect.BindingRedirection
                     continue;
                 }
 
-                if (distinctAssemblyNames.Length == 1)
-                {
-                    Log.Verbose("There is only one version of {AssemblyName} referenced: {@DistinctVersions}", assemblyName, distinctVersions);
-                    continue;
-                }
-
-                Log.Debug("There are {VersionCount} distinct versions of {AssemblyName}: {@DistinctVersions}", distinctAssemblyNames.Length, assemblyName, distinctVersions);
+                Log.Debug("There are {VersionCount} distinct version(s) of {AssemblyName}: {@DistinctVersions}", distinctAssemblyNames.Length, assemblyName, distinctVersions);
                 yield return g;
             }
         }
