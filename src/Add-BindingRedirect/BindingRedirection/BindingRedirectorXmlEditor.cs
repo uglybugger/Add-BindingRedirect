@@ -27,7 +27,10 @@ namespace Add_BindingRedirect.BindingRedirection
                     .Do(n => n.Parent.Remove())
                     .Done();
 
-                var publicKeyToken = BitConverter.ToString(refToConsolidate.GetPublicKeyToken()).Replace("-", string.Empty).ToLowerInvariant();
+                var publicKeyTokenBytes = refToConsolidate.GetPublicKeyToken();
+                var publicKeyToken = publicKeyTokenBytes != null
+                                         ? BitConverter.ToString(publicKeyTokenBytes).Replace("-", string.Empty).ToLowerInvariant()
+                                         : "null";
                 var cultureName = string.IsNullOrWhiteSpace(refToConsolidate.CultureName) ? "neutral" : refToConsolidate.CultureName;
                 var s =
                     $@"
