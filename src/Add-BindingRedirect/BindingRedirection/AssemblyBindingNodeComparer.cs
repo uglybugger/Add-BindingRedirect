@@ -18,11 +18,11 @@ namespace Add_BindingRedirect.BindingRedirection
 
         public int Compare(XElement x, XElement y)
         {
-            var xDependentAssemblyNode = x.XPathSelectElements("asm:assemblyIdentity", _nsm).Single();
-            var xAssemblyName = xDependentAssemblyNode.Attribute("name").Value;
+            var xDependentAssemblyNode = x.XPathSelectElements("asm:assemblyIdentity", _nsm).SingleOrDefault();
+            var yDependentAssemblyNode = y.XPathSelectElements("asm:assemblyIdentity", _nsm).SingleOrDefault();
 
-            var yDependentAssemblyNode = y.XPathSelectElements("asm:assemblyIdentity", _nsm).Single();
-            var yAssemblyName = yDependentAssemblyNode.Attribute("name").Value;
+            var xAssemblyName = xDependentAssemblyNode?.Attribute("name").Value;
+            var yAssemblyName = yDependentAssemblyNode?.Attribute("name").Value;
 
             return string.CompareOrdinal(xAssemblyName, yAssemblyName);
         }
