@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Serilog;
+using ThirdDrawer.Extensions.CollectionExtensionMethods;
 
 namespace Add_BindingRedirect.BindingRedirection
 {
@@ -10,7 +11,13 @@ namespace Add_BindingRedirect.BindingRedirection
         public IEnumerable<IGrouping<string, AssemblyName>> DeriveAssembliesToConsolidate(AssemblyName[] assemblyReferences)
         {
             Log.Verbose("Consolidating assemblies that have different referenced versions");
-            foreach (var g in assemblyReferences.GroupBy(an => an.Name).OrderBy(g => g.Key))
+
+            var groupings = assemblyReferences
+                .NotNull()
+                .GroupBy(an => an.Name)
+                .OrderBy(g => g.Key);
+
+            foreach (var g in groupings)
             {
                 var distinctAssemblyNames = g
                     .GroupBy(an => an.Version)
