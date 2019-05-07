@@ -10,10 +10,15 @@ namespace Add_BindingRedirect.CsprojReading
     public class CsprojReferenceScanner
     {
         private Regex excludeAssemblyRegex;
+        private bool excludeEnabled = false;
 
         public CsprojReferenceScanner(string excludeAssemblyRegex)
         {
-            this.excludeAssemblyRegex = new Regex(excludeAssemblyRegex);
+            if (!string.IsNullOrWhiteSpace(excludeAssemblyRegex))
+            {
+                this.excludeAssemblyRegex = new Regex(excludeAssemblyRegex);
+                this.excludeEnabled = true;
+            }
         }
 
         public IEnumerable<AssemblyName> ScanForReferencedAssemblies(FileInfo csproj)
@@ -30,7 +35,7 @@ namespace Add_BindingRedirect.CsprojReading
                 .ToArray();
             var assemblyNames = references
                 .Select(r => r.Attribute("Include").Value)
-                .Where(r => !excludeAssemblyRegex.IsMatch(r))
+                .Where(r => !(excludeEnabled && excludeAssemblyRegex.IsMatch(r)))
                 .Select(n => new AssemblyName(n))
                 .ToArray();
 
