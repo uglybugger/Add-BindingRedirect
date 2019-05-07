@@ -11,6 +11,9 @@ namespace Add_BindingRedirect
         [ParameterIsOptional]
         public string Directory { get; set; }
 
+        [ParameterIsOptional]
+        public string ExcludeAssemblyRegex { get; set; }
+
         public Parameters()
         {
             Directory = System.IO.Directory.GetCurrentDirectory();
