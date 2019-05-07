@@ -21,7 +21,7 @@ namespace Add_BindingRedirect
 
             var currentDirectory = new DirectoryInfo(parameters.Directory);
 
-            var bindingRedirector = new BindingRedirector(Log.Logger, new RecursingDirectoryScanner(), new CsprojReferenceScanner(), new AssemblyReferenceConsolidator());
+            var bindingRedirector = new BindingRedirector(Log.Logger, new RecursingDirectoryScanner(), new CsprojReferenceScanner(parameters.ExcludeAssemblyRegex), new AssemblyReferenceConsolidator());
             bindingRedirector.AddBindingRedirects(currentDirectory);
         }
     }
